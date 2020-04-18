@@ -4,7 +4,7 @@ import itertools
 import numpy as np
 import tensorflow as tf
 
-from tensorpack.models import Conv2D, FixedUnPooling, MaxPooling, layer_register
+from tensorpack.models import Conv2D, FixedUnPooling, FixedUnPooling_fix, MaxPooling, layer_register
 from tensorpack.tfutils.argscope import argscope
 from tensorpack.tfutils.scope_utils import under_name_scope
 from tensorpack.tfutils.summary import add_moving_summary
@@ -42,7 +42,7 @@ def fpn_model(features):
                 x = tf.transpose(x, [0, 3, 1, 2])
                 return x
         except AttributeError:
-            return FixedUnPooling(
+            return FixedUnPooling_fix(
                 name, x, 2, unpool_mat=np.ones((2, 2), dtype='float32'),
                 data_format='channels_first')
 
